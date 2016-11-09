@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<div class="registration_form">
-			<form name="registration_form">
+			<form name="registration_form" method="post" action="register.php">
 				<div class="controls">
 					<label class="form_label" >Логин:</label>
 					<input type="text" name="login" maxlength="32"></input>
@@ -26,6 +26,9 @@
 				<div class="controls">
 					<label class="form_label">Дата рождения:</label>
 					<input type="date" name="birthday" maxlength="32"></input>
+				</div>
+				 <div class="controls">
+					<input type="submit" value="Регистрация"></input>
 				</div>
 			</form>
 		</div>
