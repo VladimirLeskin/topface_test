@@ -9,6 +9,7 @@
 	login_field.focusout(function()
 	{
 		var login = login_field.val();
+//ajax запрос на корректность логина
 		$.ajax({
 			type: "POST",
 			url: "register.php",
@@ -93,6 +94,7 @@ function check_password(password1, password2)
 	
 	if(password1 == password2 && password1 != "")
 	{
+//ajax запрос на корректность пароля		
 		$.ajax({
 			type: "POST",
 			url: "register.php",

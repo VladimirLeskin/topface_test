@@ -19,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		$result = $reg->check_password();
 	}
-	else
+	elseif($_POST['password'] == $_POST['password2'])
 	{
-//		$reg = new Registration(, $_SERVER["REMOTE_ADDR"], $_POST['password'], $_POST['user_fields']);
+		
 		$id = $reg->register_new_user();
 		if(empty($id['error']))
 		{
@@ -37,6 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			echo "</html>";
 			die();
 		}
+	}
+	else
+	{
+		echo "Ошибка регистрации, проверьте корректность введённых данных</br><a href='index.php'>Вернуться</a>";
+		die;
 	}
 	
 	if(empty($result['error']))
@@ -58,13 +63,3 @@ else
 	header('Location:index.php');
 	exit;
 }
-/*
-$db_params['host'] = "localhost";
-$db_params['user'] = "root";
-$db_params['password'] = "";
-$db_params['db_name'] = "topface";
-*/
-//die($_SERVER["REMOTE_ADDR"]);
-//$reg = new Registration('user33', $_SERVER["REMOTE_ADDR"], 'qwerty', '24.06.94');
-
-//$reg->register_new_user();

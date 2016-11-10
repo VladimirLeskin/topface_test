@@ -18,22 +18,19 @@ class Registration
 		$this->last_name = empty($additional_fields['last_name']) ? "" : $additional_fields['last_name'];
 		$this->ip_address = $ip_address;
 		$this->minutes = self::minutes;
-		
-		$db_params['host'] = "localhost";
-		$db_params['user'] = "root";
-		$db_params['password'] = "";
-		$db_params['db_name'] = "topface";
-		
-		$host = $db_params["host"];
-		$user = $db_params["user"];
-		$password = $db_params["password"];
-		$db = $db_params["db_name"];
-		
+
+//Параметры подключения к БД		
+		$host = "localhost";
+		$user = "root";
+		$password = "";
+		$db = "topface";
+//Подключаемя к БД
 		$this->mysqli = mysqli_connect($host, $user, $password, $db);
 	}
 	
 	function register_new_user()
 	{
+//Проверяем, можно ли зарегистрироваться с такими данными		
 		$user_data = $this->available_to_register();
 		
 		if(empty($user_data['user_id']) && empty($user_data['error']))
@@ -53,7 +50,8 @@ class Registration
 				'first_name'=>$this->first_name,
 				'last_name'=>$this->last_name
 			);
-			
+
+//Формируем части запроса в БД: столбцы и значения			
 			$fields = "";
 			$values = "";
 			foreach($user as $field=>$value)
@@ -91,11 +89,12 @@ class Registration
 		if(strlen($this->login)<6 || strlen($this->login)>32)
 			return array('user_id'=>false, 'error'=>'Некорректный логин');
 		
-		//Проверяем логин на недопустимые символы
+//Убираем все некорректные символы и смотрим, чтобы логин после этого не изменился
 		$login = preg_replace('/[^a-zA-Z0-9_]/', '', $this->login);
 		$login = preg_replace('/_{2,}/', '_', $login);
 		if($login != $this->login) return array('user_id'=>false, 'error'=>'недопустимые символы в логине');
 		
+//$login_only - проверяем только логин без пароля		
 		if(!$login_only)
 			$pass_data = $this->check_password();
 		
@@ -143,7 +142,8 @@ class Registration
 	{
 		if(strlen($this->password)<6 || strlen($this->password)>32)
 			return array('password'=>false, 'error'=>'Некорректная длина пароля');
-		
+
+//Убираем все некорректные символы и смотрим, чтобы пароль после этого не изменился		
 		$password = preg_replace('/[^a-zA-Z0-9_!@#$%&\(\)\^\*]/', '', $this->password);
 		$password = preg_replace('/_{2,}/', '_', $password);
 		
