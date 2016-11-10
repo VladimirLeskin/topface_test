@@ -142,7 +142,7 @@ class Registration
 		if(strlen($this->password)<6 || strlen($this->password)>32)
 			return array('password'=>false, 'error'=>'Некорректная длина пароля');
 		
-		$password = preg_replace('/[^a-zA-Z0-9_]!@#$%&\(\)\^\*/', '', $this->password);
+		$password = preg_replace('/[^a-zA-Z0-9_!@#$%&\(\)\^\*]/', '', $this->password);
 		$password = preg_replace('/_{2,}/', '_', $password);
 		
 		if($password != $this->password)

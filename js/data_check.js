@@ -5,7 +5,7 @@
 	var password2_field = $('[name="password2"]');
 	var password1 = password1_field.val();
 	var password2 = password2_field.val();
-	var passwords_match = false;
+	
 	login_field.focusout(function()
 	{
 		var login = login_field.val();
@@ -28,6 +28,8 @@
 					notification.addClass('success');
 					notification.removeClass('fail');
 					notification.text("Логин свободен");
+					$('#login_checked').val('Y');
+					fn_check_fields();
 				}
 				else
 				{
@@ -35,6 +37,8 @@
 					notification.removeClass('success');
 					notification.addClass('fail');
 					notification.text(return_data.error);
+					$('#login_checked').val('N');
+					fn_check_fields();
 				}
 			},
 			error:function(res)
@@ -46,6 +50,8 @@
 		
 	password2_field.focusout(function()
 	{
+		var password1 = password1_field.val();
+		var password2 = password2_field.val();
 		if(password1 != '' && password2 != '')
 		{
 			check_password(password1, password2);
@@ -61,8 +67,23 @@
 			check_password(password1, password2);
 		}
 	});
-
 });
+
+function fn_check_fields()
+{
+	var check_fields = $('.check_field');
+	var submit_btn = $('#submit_btn');
+	
+	for(var i=0; i<check_fields.length; i++)
+	{
+		if($(check_fields[i]).val() == 'N')
+		{
+			submit_btn.attr('disabled', 'disabled');
+			return;
+		}
+	}
+	submit_btn.removeAttr('disabled');
+}
 
 function check_password(password1, password2)
 {	
@@ -90,6 +111,8 @@ function check_password(password1, password2)
 					notification.addClass('success');
 					notification.removeClass('fail');
 					notification.text("Пароль впорядке");
+					$('#password_checked').val('Y');
+					fn_check_fields();
 				}
 				else
 				{
@@ -97,6 +120,8 @@ function check_password(password1, password2)
 					notification.removeClass('success');
 					notification.addClass('fail');
 					notification.text(return_data.error);
+					$('#password_checked').val('N');
+					fn_check_fields();
 				}
 			},
 			error:function(res)
@@ -110,10 +135,7 @@ function check_password(password1, password2)
 		$('#invalid_password2').addClass('fail');
 		$('#invalid_password2').removeClass('success');
 		$('#invalid_password2').text("Пароли не совпадают");
+		$('#password_checked').val('N');
+		fn_check_fields();
 	}
-}
-
-function available_to_submit(password1, password2, login)
-{
-	if(password2!="")
 }

@@ -13,12 +13,14 @@
 				<div class="controls">
 					<label class="form_label" >Логин:</label>
 					<input type="text" name="login" maxlength="32"></input>
+					<input class="check_field" type="hidden" id="login_checked" value="N"/>
 					<label id='invalid_login'></label>
 				</div>
 				
 				<div class="controls">
 					<label class="form_label">Пароль:</label>
 					<input type="password" name="password" maxlength="32"></input>
+					<input class="check_field" type="hidden" id="password_checked" value="N"/>
 					<label id="invalid_password"></label>
 				</div>
 				
@@ -44,7 +46,7 @@
 				</div>
 				
 				 <div class="controls">
-					<input type="submit" value="Регистрация" disabled></input>
+					<input id="submit_btn" type="submit" value="Регистрация" disabled></input>
 				</div>
 			</form>
 		</div>
