@@ -24,7 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 //		$reg = new Registration(, $_SERVER["REMOTE_ADDR"], $_POST['password'], $_POST['user_fields']);
 		$id = $reg->register_new_user();
 		if(empty($id['error']))
-			header('Location:index.php');
+		{
+			echo "<html>";
+			echo "Успех!</br><a href='index.php'>Вернуться</a>";
+			echo "</html>";
+			die();
+		}
 		else
 		{
 			echo "<html>";
