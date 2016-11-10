@@ -5,7 +5,7 @@ class Registration
 	public $login;
 	private $password;
 	//количество минут, в течение которого нельзя зарегистрироваться с ip адреса после прошлой регистрации
-	const minutes = 30;
+	const minutes = 10;
 	public $birthday;
 	private $mysqli;
 	
@@ -49,7 +49,9 @@ class Registration
 				'login'=>$this->login,
 				'password'=>md5(md5($this->password)),
 				'birthday'=>$this->birthday,
-				'ip_address'=>$this->ip_address
+				'ip_address'=>$this->ip_address,
+				'first_name'=>$this->first_name,
+				'last_name'=>$this->last_name
 			);
 			
 			$fields = "";
